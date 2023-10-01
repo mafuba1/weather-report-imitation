@@ -30,6 +30,9 @@ public class Report {
     @JoinColumn(name = "sensor_id")
     private Sensor sensor;
 
+    public Report() {
+    }
+
     public int getId() {
         return id;
     }
