@@ -61,4 +61,12 @@ public class Report {
     public void setSensor(Sensor sensor) {
         this.sensor = sensor;
     }
+
+    public boolean isRaining() {
+        return isRaining;
+    }
+
+    public void setRaining(boolean raining) {
+        isRaining = raining;
+    }
 }
