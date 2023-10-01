@@ -3,6 +3,7 @@ package ru.nasrulaev.weatherreportimitation.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 
@@ -23,9 +24,11 @@ public class Report {
     @Max(value = 100, message = "Air temperature should not be above 100")
     private Double temperature;
 
+    @NotNull
     @Column(name = "raining")
     private boolean isRaining;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sensor_id")
     private Sensor sensor;
