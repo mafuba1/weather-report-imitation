@@ -6,5 +6,5 @@ import ru.nasrulaev.weatherreportimitation.models.Report;
 
 @Repository
 public interface ReportsRepository extends JpaRepository<Report, Integer> {
-    public int countByRaining(boolean raining);
+    int countByIsRaining(boolean raining);
 }
