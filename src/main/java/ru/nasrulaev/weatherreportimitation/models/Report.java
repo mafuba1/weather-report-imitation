@@ -22,11 +22,12 @@ public class Report {
     @Column(name = "value")
     @Min(value = -100, message = "Air temperature value should not be below -100")
     @Max(value = 100, message = "Air temperature should not be above 100")
+    @NotNull
     private Double temperature;
 
     @NotNull
     @Column(name = "raining")
-    private boolean isRaining;
+    private Boolean isRaining;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
@@ -68,11 +69,11 @@ public class Report {
         this.sensor = sensor;
     }
 
-    public boolean isRaining() {
+    public Boolean isRaining() {
         return isRaining;
     }
 
-    public void setRaining(boolean raining) {
+    public void setRaining(Boolean raining) {
         isRaining = raining;
     }
 }
