@@ -43,7 +43,7 @@ public class SensorsController {
                         .append(";");
             }
 
-            throw new SensorNotCreatedException(errors.toString());
+            throw new SensorNotCreatedException(errorMsg.toString());
         }
 
         sensorsService.save(convertToSensor(sensorDTO));
