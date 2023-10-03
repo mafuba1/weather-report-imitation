@@ -3,7 +3,6 @@ package ru.nasrulaev.weatherreportimitation.dto;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import ru.nasrulaev.weatherreportimitation.models.Sensor;
 
 public class ReportDTO {
     @Min(value = -100, message = "Air temperature value should not be below -100")
@@ -14,7 +13,7 @@ public class ReportDTO {
     private boolean isRaining;
 
     @NotNull
-    private Sensor sensor;
+    private SensorDTO sensor;
 
     public ReportDTO() {
     }
@@ -35,11 +34,11 @@ public class ReportDTO {
         isRaining = raining;
     }
 
-    public Sensor getSensor() {
+    public SensorDTO getSensor() {
         return sensor;
     }
 
-    public void setSensor(Sensor sensor) {
+    public void setSensor(SensorDTO sensor) {
         this.sensor = sensor;
     }
 }
