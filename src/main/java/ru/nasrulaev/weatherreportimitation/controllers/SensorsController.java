@@ -13,6 +13,7 @@ import ru.nasrulaev.weatherreportimitation.models.Sensor;
 import ru.nasrulaev.weatherreportimitation.services.SensorsService;
 import ru.nasrulaev.weatherreportimitation.util.errors.SensorErrorResponse;
 import ru.nasrulaev.weatherreportimitation.util.errors.SensorNotCreatedException;
+import ru.nasrulaev.weatherreportimitation.validation.SensorValidator;
 
 import java.util.List;
 
@@ -21,17 +22,21 @@ import java.util.List;
 public class SensorsController {
 
     private final SensorsService sensorsService;
+    private final SensorValidator sensorValidator;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public SensorsController(SensorsService sensorsService, ModelMapper modelMapper) {
+    public SensorsController(SensorsService sensorsService, SensorValidator sensorValidator, ModelMapper modelMapper) {
         this.sensorsService = sensorsService;
+        this.sensorValidator = sensorValidator;
         this.modelMapper = modelMapper;
     }
 
     @PostMapping("/registration")
     public ResponseEntity<HttpStatus> register(@RequestBody @Valid SensorDTO sensorDTO,
                                                BindingResult bindingResult){
+        sensorValidator.validate(convertToSensor(sensorDTO), bindingResult);
+
         if (bindingResult.hasErrors()) {
             StringBuilder errorMsg = new StringBuilder();
 

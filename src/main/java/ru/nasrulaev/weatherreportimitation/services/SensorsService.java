@@ -17,5 +17,9 @@ public class SensorsService {
     public void save(Sensor sensor){
         sensorsRepository.save(sensor);
     }
+
+    public boolean uniqueCheck(Sensor sensor) {
+        return sensorsRepository.existsByName(sensor.getName());
+    }
 }
 
