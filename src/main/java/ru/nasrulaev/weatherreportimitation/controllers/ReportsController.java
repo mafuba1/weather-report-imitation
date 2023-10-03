@@ -8,10 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.nasrulaev.weatherreportimitation.dto.ReportDTO;
 import ru.nasrulaev.weatherreportimitation.models.Report;
 import ru.nasrulaev.weatherreportimitation.services.ReportsService;
@@ -58,6 +55,12 @@ public class ReportsController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
+    @ResponseBody
+    @GetMapping
+    public List<ReportDTO> index() {
+        return reportsService.index().stream().map(this::convertToReportDTO).toList();
+    }
+
     @ExceptionHandler
     public ResponseEntity<ReportErrorResponse> handleException(ReportNotSavedException e) {
         ReportErrorResponse response = new ReportErrorResponse(
@@ -69,5 +72,9 @@ public class ReportsController {
 
     private Report convertToReport(ReportDTO reportDTO) {
         return modelMapper.map(reportDTO, Report.class);
+    }
+
+    private ReportDTO convertToReportDTO(Report report) {
+        return modelMapper.map(report, ReportDTO.class);
     }
 }

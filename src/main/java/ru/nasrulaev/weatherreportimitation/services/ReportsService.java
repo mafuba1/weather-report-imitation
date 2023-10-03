@@ -7,6 +7,7 @@ import ru.nasrulaev.weatherreportimitation.repositories.ReportsRepository;
 import ru.nasrulaev.weatherreportimitation.repositories.SensorsRepository;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ReportsService {
@@ -27,6 +28,11 @@ public class ReportsService {
     public boolean checkSensor(Report report) {
         return sensorsRepository.existsByName(report.getSensor().getName());
     }
+
+    public List<Report> index() {
+        return reportsRepository.findAll();
+    }
+
 
     private void enrichReport(Report report) {
         report.setTimestamp(new Date());
