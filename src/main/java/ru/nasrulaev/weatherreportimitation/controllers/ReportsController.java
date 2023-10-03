@@ -17,6 +17,7 @@ import ru.nasrulaev.weatherreportimitation.models.Report;
 import ru.nasrulaev.weatherreportimitation.services.ReportsService;
 import ru.nasrulaev.weatherreportimitation.util.errors.ReportErrorResponse;
 import ru.nasrulaev.weatherreportimitation.util.errors.ReportNotSavedException;
+import ru.nasrulaev.weatherreportimitation.validation.ReportValidator;
 
 import java.util.List;
 
@@ -26,16 +27,20 @@ public class ReportsController {
 
     private final ReportsService reportsService;
     private final ModelMapper modelMapper;
+    private final ReportValidator reportValidator;
 
     @Autowired
-    public ReportsController(ReportsService reportsService, ModelMapper modelMapper) {
+    public ReportsController(ReportsService reportsService, ModelMapper modelMapper, ReportValidator reportValidator) {
         this.reportsService = reportsService;
         this.modelMapper = modelMapper;
+        this.reportValidator = reportValidator;
     }
 
     @PostMapping("/add")
     public ResponseEntity<HttpStatus> report(@RequestBody @Valid ReportDTO reportDTO,
                                              BindingResult bindingResult) {
+        reportValidator.validate(convertToReport(reportDTO), bindingResult);
+
         if (bindingResult.hasErrors()) {
             StringBuilder errorMsg = new StringBuilder();
 

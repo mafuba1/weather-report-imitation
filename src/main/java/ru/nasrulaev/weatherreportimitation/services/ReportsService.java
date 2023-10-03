@@ -24,6 +24,10 @@ public class ReportsService {
         reportsRepository.save(report);
     }
 
+    public boolean checkSensor(Report report) {
+        return sensorsRepository.existsByName(report.getSensor().getName());
+    }
+
     private void enrichReport(Report report) {
         report.setTimestamp(new Date());
         report.setSensor(sensorsRepository.findByName(report.getSensor().getName()));
