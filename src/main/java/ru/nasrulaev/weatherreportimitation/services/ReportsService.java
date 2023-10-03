@@ -33,6 +33,9 @@ public class ReportsService {
         return reportsRepository.findAll();
     }
 
+    public int rainyDaysCount() {
+        return reportsRepository.countByIsRaining(true);
+    }
 
     private void enrichReport(Report report) {
         report.setTimestamp(new Date());

@@ -61,6 +61,12 @@ public class ReportsController {
         return reportsService.index().stream().map(this::convertToReportDTO).toList();
     }
 
+    @ResponseBody
+    @GetMapping("/rainyDaysCount")
+    public int rainyDaysCount() {
+        return reportsService.rainyDaysCount();
+    }
+
     @ExceptionHandler
     public ResponseEntity<ReportErrorResponse> handleException(ReportNotSavedException e) {
         ReportErrorResponse response = new ReportErrorResponse(
