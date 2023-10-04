@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import ru.nasrulaev.weatherreportimitation.dto.ReportDTO;
+import ru.nasrulaev.weatherreportimitation.dto.ReportsList;
 import ru.nasrulaev.weatherreportimitation.models.Report;
 import ru.nasrulaev.weatherreportimitation.services.ReportsService;
 import ru.nasrulaev.weatherreportimitation.util.errors.ReportErrorResponse;
@@ -17,6 +18,7 @@ import ru.nasrulaev.weatherreportimitation.util.errors.ReportNotSavedException;
 import ru.nasrulaev.weatherreportimitation.validation.ReportValidator;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/reports")
@@ -57,8 +59,13 @@ public class ReportsController {
 
     @ResponseBody
     @GetMapping
-    public List<ReportDTO> index() {
-        return reportsService.index().stream().map(this::convertToReportDTO).toList();
+    public ReportsList index() {
+        return new ReportsList(
+                reportsService.index()
+                        .stream()
+                        .map(this::convertToReportDTO)
+                        .collect(Collectors.toList())
+        );
     }
 
     @ResponseBody
